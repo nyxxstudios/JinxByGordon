@@ -1,7 +1,9 @@
 package sc.player2016.logic;
 
 import java.security.SecureRandom;
+import java.util.ArrayList;
 import java.util.Random;
+import java.util.List;
 
 import sc.plugin2016.GameState;
 import sc.plugin2016.Move;
@@ -22,4 +24,9 @@ public class Jinx {
 
         return selection;
     }     
+    public static ArrayList<Field> preselectMoves (GameState gameState){
+        ArrayList<Field> preselectMoves = null;
+        
+        return preselectMoves;
+    }
 }
