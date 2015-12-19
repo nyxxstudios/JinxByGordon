@@ -1,7 +1,6 @@
 package sc.player2016.logic;
 
 import java.security.SecureRandom;
-import java.util.List;
 import java.util.Random;
 
 import sc.player2016.Starter;
