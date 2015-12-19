@@ -12,8 +12,8 @@ import sc.plugin2016.Move;
  */
 public class Jinx {
 
-    int x = 1;
-    int y = 2;
+    static int x = 1;
+    static int y = 2;
 
     public static Move findMove (GameState gameState){
         Move selection;
