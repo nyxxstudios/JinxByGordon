@@ -11,12 +11,26 @@ import java.util.ArrayList;
 
 public class Field {
     /* coordinate - 0<x<25  0<y<25 **/
-    private int x;
-    private int y;
+    public int x;
+    public int y;
     
     /* Type of Field - free, blocked, jinx, opponent**/ 
-    private String type;
+    public String type;
     
     private ArrayList<Field> connecions = new ArrayList<Field>();
+    
+    public Field(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+    
+    public int getX(){
+		return x;
+	}
+	
+    public int getY(){
+		return y;
+	}
+    
     
 }

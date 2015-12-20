@@ -4,6 +4,7 @@ import java.security.SecureRandom;
 import java.util.Random;
 
 import sc.player2016.Starter;
+import static sc.player2016.logic.Jinx.preselectMoves;
 import sc.plugin2016.GameState;
 import sc.plugin2016.IGameHandler;
 import sc.plugin2016.Move;
