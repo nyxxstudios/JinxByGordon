@@ -15,9 +15,11 @@ public class Field {
     public int y;
     
     /* Type of Field - free, blocked, jinx, opponent**/ 
+    /*  CHANGE TO ENUM**/
+   
     public String type;
     
-    private ArrayList<Field> connecions = new ArrayList<Field>();
+    private ArrayList<Field> connections = new ArrayList<Field>();
     
     public Field(int x, int y) {
         this.x = x;
