@@ -43,9 +43,9 @@ public class Jinx {
   
         /* preselected moves in realtion to a move **/ 
         int[][] visualRange1 = {
-                            {-1,2},{1,2},{-2,1},{2,1},{-2,-1},{-2,-1},{-1,2}
+                            {-1,2},{1,2},{-2,1},{2,1},{-2,-1},{-2,-1},{-1,2} //CORRECTION NEEDED
         };    
-        
+        //Not IN USE
         int[][] visualRange2 = {
                     {-2,4},{0,4},{2,4},
                  {-3,3},{-1,3},{1,3},{3,3},
@@ -67,10 +67,9 @@ public class Jinx {
             Mx = Mx + a[0];        
             My = My + a[1];
             
-            Field relatedMove = null;
-   
-            relatedMove.x = Mx;
-            relatedMove.y = My;
+            Field relatedMove = new Field(Mx, My);
+                
+            //CORRECTION NEEDED
             
             relatedMove.type = (gameState.getBoard()).getField(relatedMove.x, relatedMove.y).getType().toString();
             
