@@ -81,6 +81,10 @@ public class RandomLogic implements IGameHandler {
 		System.out.print("*** Das Spiel geht vorran: Zug = "
 				+ gameState.getTurn());
 		System.out.println(", Spieler = " + currentPlayer.getPlayerColor());
+                
+                if (gameState.getLastMove() != null ) {
+                     System.out.println(currentPlayer.getPlayerColor().toString() + " setzt auf " + gameState.getLastMove().getX() + ", " + gameState.getLastMove().getY());
+                }
 	}
 
 	/**

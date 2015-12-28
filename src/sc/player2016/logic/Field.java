@@ -13,17 +13,27 @@ public class Field {
     /* coordinate - 0<x<25  0<y<25 **/
     public int x;
     public int y;
-    
-    /* Type of Field - free, blocked, jinx, opponent**/ 
-    /*  CHANGE TO ENUM**/
+    public static Type Type;
    
-    public String type;
+    public enum Type {
+        Jinx,
+        Opponent,
+        Blocked,
+        Free
+    }
     
     private ArrayList<Field> connections = new ArrayList<Field>();
     
     public Field(int x, int y) {
         this.x = x;
         this.y = y;
+    }
+
+    Field(int x, int y, Type type, ArrayList<Field> connections) {
+        this.x = x;
+        this.y = y;
+        this.Type = type;
+        this.connections = connections;
     }
     
     public int getX(){
@@ -33,6 +43,14 @@ public class Field {
     public int getY(){
 		return y;
 	}
+    
+    public Type getType (){
+        return Type;
+    }
+    
+    public void setType (Type type){
+        this.Type = type;
+    }
     
     
 }

@@ -16,8 +16,8 @@ import sc.player2016.logic.Board;
  */
 public class Jinx {
 
-    static int x = 1;
-    static int y = 2;
+    static int x = 6;
+    static int y = 6;
     
     static int visualRange = 2; /*not in use**/
     
@@ -29,6 +29,8 @@ public class Jinx {
     public static Move findMove (GameState gameState){
         
         Move selection;
+        
+        preselectMoves(gameState);
         
         selection = new Move(x, y); 
         
@@ -43,7 +45,7 @@ public class Jinx {
   
         /* preselected moves in realtion to a move **/ 
         int[][] visualRange1 = {
-                            {-1,2},{1,2},{-2,1},{2,1},{-2,-1},{-2,-1},{-1,2} //CORRECTION NEEDED
+                            {-1,2},{-1,-2},{1,2},{-2,1},{2,1},{-2,-1},{2,-1},{1,-2} 
         };    
         //Not IN USE
         int[][] visualRange2 = {
@@ -69,12 +71,10 @@ public class Jinx {
             
             Field relatedMove = new Field(Mx, My);
                 
-            //CORRECTION NEEDED
-            
-            relatedMove.type = (gameState.getBoard()).getField(relatedMove.x, relatedMove.y).getType().toString();
+           relatedMove.setType(Field.Type.Free);
             
             if (Mx >= 0 && Mx < 24 && My >= 0 && My < 24){
-                if (relatedMove.type != "SWAMP" ){
+                if (Field.Type.Blocked != relatedMove.getType()){
                     preselectMoves.add(relatedMove);
                     System.out.println(relatedMove.x + ", " + relatedMove.y);
                 }
