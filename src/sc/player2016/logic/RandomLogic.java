@@ -11,6 +11,8 @@ import sc.plugin2016.Move;
 import sc.plugin2016.Player;
 import sc.plugin2016.PlayerColor;
 import sc.shared.GameResult;
+import sc.player2016.logic.Jinx;
+
 
 /**
  * Das Herz des Simpleclients: Eine sehr simple Logik, die ihre Zuege zufaellig
@@ -77,9 +79,14 @@ public class RandomLogic implements IGameHandler {
 	public void onUpdate(GameState gameState) {
 		this.gameState = gameState;
 		currentPlayer = gameState.getCurrentPlayer();
-
+ /**               
+                  String printType = null;
+                  if (!Jinx.firstMove) {
+                    printType = gameState.getBoard().getField(gameState.getLastMove().getX(), gameState.getLastMove().getY()).getType().toString();
+                    };
+*/                    
 		System.out.print("*** Das Spiel geht vorran: Zug = "
-				+ gameState.getTurn());
+				+ gameState.getTurn() /* + "FieldType: "  +  printType */);
 		System.out.println(", Spieler = " + currentPlayer.getPlayerColor());
                 
                 if (gameState.getLastMove() != null ) {

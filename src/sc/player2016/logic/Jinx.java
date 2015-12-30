@@ -9,11 +9,12 @@ import sc.plugin2016.GameState;
 import sc.plugin2016.Move;
 import sc.player2016.logic.Field;
 import sc.player2016.logic.Board;
+import sc.plugin2016.FieldType;
 
 
 public class Jinx {
 
-    static int x = 6;
+    static int x = 0;
     static int y = 6;
     
     public static int visualRange = 2; // 2 or 1
@@ -29,7 +30,10 @@ public class Jinx {
         
         Move selection;
         
-        if (gameState.getTurn() == 3) {firstMove = false;};
+        if (firstMove) {
+            firstMove = false;
+            
+        };
         
         preselectMoves(gameState, lastlastMove);
         
@@ -94,22 +98,25 @@ public class Jinx {
                 ArrayList<Field> preselectMoves = new ArrayList();
                 
                 for (int[] a : visualRangeSel){
-                int Mx = occuMove.getX();
-                int My = occuMove.getY(); 
+                    int Mx = occuMove.getX();
+                    int My = occuMove.getY(); 
 
-                Mx = Mx + a[0];        
-                My = My + a[1];
+                    Mx = Mx + a[0];        
+                    My = My + a[1];
+                    
+                    if (Mx < 24 && My < 24) {
+                        Field relatedMove = new Field(Mx, My);
 
-                Field relatedMove = new Field(Mx, My);
+                        relatedMove.assignType(gameState);
 
-               relatedMove.setType(Field.Type.Free); // Just for testing
+                        if (Mx >= 0 && Mx < 24 && My >= 0 && My < 24){
+                            //if (Field.Type.SWAMP != relatedMove.getType() && Field.Type.OPPONENT != relatedMove.getType()){
+                                    preselectMoves.add(relatedMove);
+                                    System.out.println(relatedMove.x + ", " + relatedMove.y);
 
-                if (Mx >= 0 && Mx < 24 && My >= 0 && My < 24){
-                    if (Field.Type.Blocked != relatedMove.getType()){
-                        preselectMoves.add(relatedMove);
-                        System.out.println(relatedMove.x + ", " + relatedMove.y);
+                           // }
+                        }
                     }
-                }
             }
             lastlastMove = gameState.getLastMove();
             return preselectMoves;   
