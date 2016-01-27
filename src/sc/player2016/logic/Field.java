@@ -15,14 +15,9 @@ public class Field {
     public int x;
     public int y;
     
-    public static Type Type;
-    public static State State; 
+    public static Type type;
+ 
     
-    public enum State { //is captured and if by whom
-        JINX,
-        OPPONENT,
-        BLANK,
-    }
     
     public enum Type { //kind of Field my game init   
         JINX, 
@@ -38,60 +33,52 @@ public class Field {
         this.y = y;
     }
 
-    Field(int x, int y, Type type, ArrayList<Field> connections, GameState gameState, State state) {
+    Field(int x, int y, Type type, ArrayList<Field> connections) {
         this.x = x;
         this.y = y;
-        this.Type = type;
+        this.type = type;
         this.connections = connections;
-        this.State = state;
     }
     
     public int getX(){
 		return x;
-	}
+    }
 	
     public int getY(){
 		return y;
-	}
+    }
     
     public Type getType (){
-        return Type;
+        return type;
     }
     
     public void setType (Type type){
-        this.Type = type;
+        this.type = type;
     }
-    
-    public void setState (State state) {
-        this.State = state;
-    }
-    
-    public State getState() {
-        return State;
-    }
+
     
     public void assignType (GameState gameState) {
         //maybe not the easiest way
         switch (gameState.getBoard().getField(this.x, this.y).getType().toString()) {
                     case "BLUE":
                         if (gameState.getCurrentPlayerColor().toString().equals("BLUE") ){
-                            this.setType(Type.JINX);
+                            this.setType(type.JINX);
                         } else if (gameState.getCurrentPlayerColor().toString().equals("RED")){
-                            this.setType(Type.OPPONENT);
+                            this.setType(type.OPPONENT);
                         }
                          break;
                     case "RED":
                         if (gameState.getCurrentPlayerColor().toString().equals("BLUE") ){
-                            this.setType(Type.OPPONENT);
+                            this.setType(type.OPPONENT);
                         } else if (gameState.getCurrentPlayerColor().toString().equals("RED")){
-                            this.setType(Type.JINX);
+                            this.setType(type.JINX);
                         }
                          break;
                     case "SWAMP":     
-                        this.setType(Type.SWAMP);
+                        this.setType(type.SWAMP);
                          break;   
                     case "NORMAL":     
-                        this.setType(Type.NORMAL);
+                        this.setType(type.NORMAL);
                          break;
                     default: break;
         }   

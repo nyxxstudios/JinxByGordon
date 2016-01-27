@@ -10,12 +10,15 @@ import sc.plugin2016.Move;
 import sc.player2016.logic.Field;
 import sc.player2016.logic.Board;
 import sc.plugin2016.FieldType;
+import sc.plugin2016.PlayerColor;
 
 
 public class Jinx {
-
-    static int x = 0;
-    static int y = 6;
+    
+    private static final Random rand = new SecureRandom();
+    
+    static int x = 6;
+    static int y = 0;
     
     public static int visualRange = 2; // 2 or 1
     
@@ -30,21 +33,98 @@ public class Jinx {
         
         Move selection;
         
+        selection = new Move(x, y); 
+        
         if (firstMove) {
             firstMove = false;
-            
-        };
+             System.out.println("Hey There");
+            selection = getFirstMove(gameState);
+            System.out.println(selection.getX() + ", " + selection.getY());
+         };
         
-        preselectMoves(gameState, lastlastMove);
+        //preselectMoves(gameState, lastlastMove);
         
         //Just for Testing 
-        if (gameState.getTurn() == 3) {x = 18;y = 7;}
-        if (gameState.getTurn() == 5) {x = 18;y = 9;}
+        //if (gameState.getTurn() == 3) {x = 7;y = 0;}
+        //if (gameState.getTurn() == 5) {x = 8;y = 0;}
         
-        selection = new Move(x, y); 
  
         return selection;
     } 
+    
+    public static Move getFirstMove (GameState gameState) {
+            ArrayList<Move> firstMoves1 = new ArrayList();
+            ArrayList<Move> firstMoves2 = new ArrayList();
+            ArrayList<Move> firstMoves3 = new ArrayList();
+            
+            int [] horiz = {8, 15};
+            int [] vertic = {5, 18};
+            
+            switch (gameState.getStartPlayerColor()) {
+                case BLUE : 
+                    //do nothing default;
+                    break;
+                case RED :
+                    horiz[0] = 5; 
+                    horiz[1] = 18;
+                    vertic[0] = 8;
+                    vertic[1] = 15;
+                    break;
+            }  
+            
+            firstMoves1.addAll(gameState.getPossibleMoves());
+            
+            System.out.println("Debug1");
+            
+    //Level 1
+            // tests if Move is in Field of Interest(the Middel)
+            for (int i = (firstMoves1.size() - 1); i >= 0; i--) {
+                if (firstMoves1.get(i).getX() >= horiz[0] && horiz[1] >= firstMoves1.get(i).getX()){
+                    if (firstMoves1.get(i).getY() >= vertic[0] && vertic[1] >= firstMoves1.get(i).getY()) {
+                        firstMoves2.add(firstMoves1.get(i));
+                    }
+                }
+            System.out.println(i);
+            }
+    // Level 2    
+            System.out.println("Debug2");
+    
+            int [][] neighborhood = {
+                {0, -1}, {1, -1}, {1,0}, {1,1}, {0,1}, {-1,1}, {-1, 0}, {-1,-1}
+            };
+    
+            for (int i = (firstMoves2.size() -1) ; i >= 0;  i--) { 
+                boolean swampNear = false;
+                for (int j = (neighborhood.length -1); j >= 0; j--) {
+                    
+                    int mx = firstMoves2.get(i).getX();
+                    int my = firstMoves2.get(i).getY(); 
+                        
+                    mx = mx + neighborhood[j][0];
+                    my = my + neighborhood[j][1];
+                    
+                    Field occuField = new Field(mx, my);
+                    
+                    occuField.assignType(gameState);
+                    
+                    if (occuField.getType() == Field.type.SWAMP){
+                        swampNear = true;
+                    }
+                    
+                } 
+                if (!swampNear){
+                    firstMoves3.add(firstMoves2.get(i));
+                }
+            
+            } 
+    //Level 3     
+            System.out.println("Debug3");
+            
+            
+            Move result = firstMoves3.get(rand.nextInt(firstMoves3.size()));;
+            
+            return result;
+    }
 
     public static ArrayList<Field> preselectMoves (GameState gameState, Move lastlastMove){
          ArrayList<Field> preselectMoves = new ArrayList();
@@ -121,5 +201,17 @@ public class Jinx {
             lastlastMove = gameState.getLastMove();
             return preselectMoves;   
             }
+
+
+    public static int randInt(int min, int max) {
+
+        Random rand = new Random();
+
+        // nextInt is normally exclusive of the top value,
+        // so add 1 to make it inclusive
+        int randomNum = rand.nextInt((max - min) + 1) + min;
+
+        return randomNum;
+    }
 }
 
